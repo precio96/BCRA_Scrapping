@@ -38,7 +38,6 @@ BCRA <- rvest::html_table(webpage)[[1]] %>% tibble::as_tibble(.name_repair = "un
 
 # CER ------------------------------------------------------------------
 
-
 #Me quedo solo con el valor del CER
 pos_CER <- lapply(BCRA, function(ch) grep("CER", ch,ignore.case =  T))
 CER<- BCRA[pos_CER$X1,2:3]
@@ -92,7 +91,6 @@ if(max_fecha_BADLAR$Max_Fecha!=BADLAR$Fecha){
                name = "DB_TABLE2", 
                value = BADLAR,
                append = TRUE)
-  
   log_BADLAR<-"BADLAR cargado correctamente!"
   print(log_BADLAR)
   
@@ -102,7 +100,6 @@ if(max_fecha_BADLAR$Max_Fecha!=BADLAR$Fecha){
 }
 
 # TASA DE ADELANTOS ------------------------------------------------------------------
-
 
 #Me quedo solo con el valor de la tasa de Adelantos
 pos_ADELANTOS <- lapply(BCRA, function(ch) grep("Tasa de inter?s de pr?stamos por adelantos en cuenta corriente", ch,ignore.case =  T))
@@ -126,7 +123,6 @@ if(max_fecha_ADELANTOS$Max_Fecha!=ADELANTOS$Fecha){
                append = TRUE)
   log_ADELANTOS<-"Tasa de Adelantos cargada correctamente!"
   print(log_ADELANTOS)
-  
 } else {
   log_ADELANTOS <- "No se pudo cargar la Tasa de Adelantos!"
   print(log_ADELANTOS)
@@ -137,8 +133,4 @@ write.table(c(log_CER,format(CER$Fecha,"%d/%m/%Y"),CER$Valor
               ,log_ADELANTOS,format(ADELANTOS$Fecha,"%d/%m/%Y"),ADELANTOS$Valor)
             ,file=paste0("carga_tasas -",Sys.Date(),".txt"))
 
-
 print("Proceso completo!")
-
-
-
